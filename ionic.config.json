@@ -1,0 +1,7 @@
+{
+  "name": "BakeMovilPlus",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
