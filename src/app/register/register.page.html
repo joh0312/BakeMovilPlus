@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaulthref="login" text="">
+      </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-color">
+
+    <ion-card class="ion-no-margin">
+
+        <ion-card-header>
+            <ion-card-title>
+              Registrate!
+            </ion-card-title>
+            <ion-card-subtitle>
+              Crea tu cuenta llenando el formulario
+            </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <form>
+            <ion-item>
+              <ion-input name="nombre" type="text" placeholder="Nombre"></ion-input>
+              <ion-icon name="person-outline"></ion-icon>
+            </ion-item>
+
+            <ion-item>
+              <ion-input name="apellido" type="text" placeholder="Apelllido"></ion-input>
+              <ion-icon name="person-add-outline"></ion-icon>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input name="tipocc" type="text" placeholder="Tipo de Documento"></ion-input>
+              <ion-icon name="file-tray-full-outline"></ion-icon>
+            </ion-item>
+
+            <ion-item>
+              <ion-input name="documento" type="text" placeholder="Documento"></ion-input>
+              <ion-icon name="document-text-outline"></ion-icon>
+            </ion-item>
+
+            <ion-item>
+              <ion-input name="telefono" type="text" placeholder="Telefono"></ion-input>
+              <ion-icon name="call-outline"></ion-icon>
+            </ion-item>
+           
+            <ion-item>
+              <ion-input name="email" type="text" placeholder="Email"></ion-input>
+              <ion-icon name="mail-outline"></ion-icon>
+            </ion-item>
+          
+            <ion-item>
+              <ion-input name="password" type="password" placeholder="************"></ion-input>
+              <ion-icon name="lock-closed"></ion-icon>
+            </ion-item>
+       
+
+            <div class="sign-btn-wrap">
+              <ion-button shape="round" type="submit" fill="solid" class="sign-btn">Registrar</ion-button>
+            </div>
+
+            
+
+           
+          </form>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>
