@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service'; // Ruta correcta al servicio
+import { AuthService } from '../services/auth.service';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -8,29 +8,25 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./loginscreen.page.scss'],
 })
 export class LoginscreenPage implements OnInit {
-  usuario: string  = '';
-  contrasena: string  = ''; // Cambiado de 'contraseña' a 'contrasena'
+  usuario: string = '';
+  contrasena: string = '';
 
-  constructor(private authService: AuthService, private navCtrl: NavController) { // Asegúrate de que el nombre del servicio coincide con el importado
-
-  }
+  constructor(private authService: AuthService, private navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    const user = {
-      usuario: this.usuario,
-      contraseña: this.contrasena // Cambiado de 'contraseña' a 'contrasena'
-    };
+    // Crear un objeto User con el usuario y la contraseña
+    const user = { usuario: this.usuario, contraseña: this.contrasena };
 
+    // Llamar al método login con el objeto User
     this.authService.login(user).subscribe(
-      res => {
-        console.log(res);
+      (token: string) => {
+        localStorage.setItem('token', token);
         this.navCtrl.navigateForward('/home');
       },
       err => {
-        // Aquí manejas los errores de la API
         console.error(err);
       }
     );
