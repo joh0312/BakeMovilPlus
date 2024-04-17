@@ -3,7 +3,7 @@
     <!-- <ion-title>loginscreen</ion-title> -->
   </ion-toolbar>
    <ion-buttons slot="start">
-  <ion-back-button defaulthref="login" text=""></ion-back-button>
+    <ion-back-button defaulthref="login" text=""></ion-back-button>
   </ion-buttons>
 </ion-header>
 
@@ -13,20 +13,28 @@
   </ion-card>
 
   <ion-card-content>
-    <form (submit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
       <div class="wrapform">
         <ion-item>
+          <div class="form-outline mb-4" [ngClass]="{ 'has-error': validateUsuario() }"></div>
           <ion-icon name="person-outline"></ion-icon>
-          <ion-input type="text" name="usuario" [(ngModel)]="usuario" required></ion-input>
+          <ion-input formControlName="usuario" placeholder="Usuario"></ion-input>
         </ion-item>
+        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validateUsuario()">
+          <p class="fs-6">{{ validateUsuario() }}</p>
+        </div>
         <ion-item>
+          <div class="form-outline mb-4"  [ngClass]="{ 'has-error': validatePass() }"></div>
           <ion-icon name="lock-closed"></ion-icon>
-          <ion-input type="password" name="contraseña"  [(ngModel)]="contrasena" placeholder="************" required></ion-input>
+          <ion-input formControlName="contraseña" type="password" placeholder="************"></ion-input>
         </ion-item>
+        <div class="text-danger mt-1" style="width: 300px; height: 0.1px;" *ngIf="validatePass()">
+          <p class="fs-6">{{ validatePass() }}</p>
+        </div>
       </div>
 
       <div class="sign-btn-wrap">
-        <ion-button shape="round" type="submit" fill="solid" class="sign-btn">Iniciar Session</ion-button>
+        <ion-button shape="round" type="submit" fill="solid" class="sign-btn">Iniciar Sesión</ion-button>
       </div>
     </form>
 
