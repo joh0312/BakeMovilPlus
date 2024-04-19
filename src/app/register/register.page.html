@@ -9,64 +9,124 @@
 
 <ion-content class="bg-color">
 
-    <ion-card class="ion-no-margin">
+  <ion-card class="ion-no-margin">
 
-        <ion-card-header>
-            <ion-card-title>
-              Registrate!
-            </ion-card-title>
-            <ion-card-subtitle>
-              Crea tu cuenta llenando el formulario
-            </ion-card-subtitle>
-        </ion-card-header>
+    <ion-card-header>
+      <ion-card-title>
+        Registrate!
+      </ion-card-title>
+      <ion-card-subtitle>
+        Crea tu cuenta llenando el formulario
+      </ion-card-subtitle>
+    </ion-card-header>
 
-        <ion-card-content>
-          <form>
-            <ion-item>
-              <ion-input name="nombre" type="text" placeholder="Nombre"></ion-input>
-              <ion-icon name="person-outline"></ion-icon>
-            </ion-item>
+    <ion-card-content>
+      <form [formGroup]="nuevoForm" (ngSubmit)="insertUsuarios(nuevoForm.value)">
+        <ion-item>
+          <ion-input type="text" placeholder="Nombre" formControlName="nombre_usuario"
+            [ngClass]="{ 'is-invalid': validateNombre() }" (click)="onNombreClicked()"></ion-input>
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-item>
+        <div class="error-message mt-1" *ngIf="validateNombre()">
+          <p class="fs-6">{{ validateNombre() }}</p>
+        </div>
 
-            <ion-item>
-              <ion-input name="apellido" type="text" placeholder="Apelllido"></ion-input>
-              <ion-icon name="person-add-outline"></ion-icon>
-            </ion-item>
-            
-            <ion-item>
-              <ion-input name="tipocc" type="text" placeholder="Tipo de Documento"></ion-input>
-              <ion-icon name="file-tray-full-outline"></ion-icon>
-            </ion-item>
 
-            <ion-item>
-              <ion-input name="documento" type="text" placeholder="Documento"></ion-input>
-              <ion-icon name="document-text-outline"></ion-icon>
-            </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Apelllido" formControlName="apellido_usuario"
+            [ngClass]="{ 'is-invalid': validateApellido() }" (click)="onApellidoClicked()"></ion-input>
+          <ion-icon name="person-add-outline"></ion-icon>
+        </ion-item>
+        <div class="text-danger mt-1" *ngIf="validateApellido()">
+          <p class="fs-6">{{ validateApellido() }}</p>
+        </div>
 
-            <ion-item>
-              <ion-input name="telefono" type="text" placeholder="Telefono"></ion-input>
-              <ion-icon name="call-outline"></ion-icon>
-            </ion-item>
-           
-            <ion-item>
-              <ion-input name="email" type="text" placeholder="Email"></ion-input>
-              <ion-icon name="mail-outline"></ion-icon>
-            </ion-item>
-          
-            <ion-item>
-              <ion-input name="password" type="password" placeholder="************"></ion-input>
-              <ion-icon name="lock-closed"></ion-icon>
-            </ion-item>
-       
+        <ion-item>
+          <ion-select label="Tipo de documento" formControlName="id_tipo_documento" interface="action-sheet"
+            [ngClass]="{ 'is-invalid': validaTipoDoc() }" (click)="onTipoDocClicked()">
+            <ion-select-option value="cc">Cédula de Ciudadanía</ion-select-option>
+            <ion-select-option value="ti">Tarjeta de Identidad</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div class="text-danger mt-1" *ngIf="validaTipoDoc()">
+          <p class="fs-6">{{ validaTipoDoc() }}</p>
+        </div>
 
-            <div class="sign-btn-wrap">
-              <ion-button shape="round" type="submit" fill="solid" class="sign-btn">Registrar</ion-button>
-            </div>
 
-            
 
-           
-          </form>
-        </ion-card-content>
-    </ion-card>
+
+
+        <ion-item>
+          <ion-input type="number" placeholder="Documento" formControlName="doc_usuario"
+            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateDocument() }"
+            (click)="onDocClicked()"></ion-input>
+          <ion-icon name="document-text-outline"></ion-icon>
+        </ion-item>
+        <div class="text-danger mt-1" *ngIf="validateDocument()">
+          <p class="fs-6">{{ validateDocument() }}</p>
+        </div>
+
+        <ion-item>
+          <ion-input type="number" placeholder="Telefono" formControlName="telefono_usuario"
+            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateTel() }"
+            (click)="onTelClicked()"></ion-input>
+          <ion-icon name="call-outline"></ion-icon>
+        </ion-item>
+        <div class="text-danger mt-1" *ngIf="validateTel()">
+          <p class="fs-6">{{ validateTel() }}</p>
+        </div>
+
+        <ion-item>
+          <ion-input type="text" placeholder="Email" formControlName="email_usuario"
+            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateEmail() }"></ion-input>
+          <ion-icon name="mail-outline"></ion-icon>
+        </ion-item>
+        <div class="text-danger mt-1" *ngIf="validateEmail()">
+          <p class="fs-6">Email ingresado no es válido!</p>
+        </div>
+
+
+        <ion-item>
+          <ion-input type="password" placeholder="************" formControlName="password_usuario"
+            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validatePassword() }"
+            (click)="onPassClicked()"></ion-input>
+          <ion-icon name="lock-closed"></ion-icon>
+        </ion-item>
+        <div class="text-danger mt-1" *ngIf="validatePassword()">
+          <p class="fs-6">{{ validatePassword() }}</p>
+        </div>
+
+        <ion-item>
+          <ion-input type="password" placeholder="Confirmar contraseña" formControlName="cPassword_usuario"
+            class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateCPassword() }"
+            (click)="onCPassClicked()"></ion-input>
+          <ion-icon name="lock-closed"></ion-icon>
+        </ion-item>
+        <div class="text-danger mt-1" *ngIf="validateCPassword()">
+          <p class="fs-6">{{ validateCPassword() }}</p>
+        </div>
+
+        <ion-item>
+          <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaRol() }"></div>
+          <ion-select label="Selecciona un rol" formControlName="id_rol" interface="action-sheet" class="form-select form-select-lg"
+            [ngClass]="{ 'is-invalid': validaRol() }" (click)="onRolClicked()">
+            <ion-select-option value="ADMIN">Administrador</ion-select-option>
+            <ion-select-option value="PANADERO">Panadero</ion-select-option>
+            <ion-select-option value="vendedor">Vendedor</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+
+        <div class="sign-btn-wrap">
+          <ion-button shape="round" type="submit" fill="solid" class="sign-btn">Registrar</ion-button>
+        </div>
+
+
+
+
+      </form>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

@@ -5,6 +5,10 @@ import { map } from 'rxjs/operators';
 import { marcasI } from 'src/app/models/marcas.interface';
 import { LoginI } from '../models/login.interface';
 import { ResponseI } from '../models/response.interface';
+import { RegistroI } from '../models/registro.interface';
+import { RolesI } from '../models/roles.interfaces';
+import { TipoDocI } from '../models/tipoDocument.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +21,18 @@ export class AuthService {
 
   login(form: LoginI): Observable<ResponseI> {
     let direccion = `${this.apiUrl}/usuarios/login`; // Agregar la barra diagonal aquí
-    return this.http.post<ResponseI>(direccion, form);
+    return this.http.post<ResponseI>(direccion, form).pipe(
+      map((response: any) => ({
+        token: response.success.data.token,
+        nombre_usuario: response.success.data.nombre_usuario,
+        usuario: response.success.data.usuario,
+        permissions: response.success.data.permisos.map(
+          (permissionArray: string[]) => ({
+            name: permissionArray[0],
+          })
+        ),
+      }))
+    );
   }
 
   private createHeaders(): HttpHeaders {
@@ -41,4 +56,73 @@ export class AuthService {
       })))
     );
   }
+
+  getAllUsuarios(): Observable<RegistroI[]> {
+    const headers = this.createHeaders();
+    let direccion = `${this.apiUrl}/usuarios/getAll`; // Agregar la barra diagonal aquí
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) =>
+        response.success.data.map((usuario: any) => ({
+          id_usuario:usuario.id_usuario,
+          id_rol : usuario.id_rol,
+          id_tipo_documento: usuario.id_tipo_documento,
+          tipo_documento: usuario.tipo_documento,
+          doc_usuario:usuario.doc_usuario,
+          password_usuario: usuario.password_usuario,
+          nombre_usuario: usuario.nombre_usuario,
+          apellido_usuario: usuario.apellido_usuario,
+          telefono_usuario: usuario.telefono_usuario,
+          email_usuario: usuario.email_usuario,
+          nombre_tipo_documento:usuario.nombre_tipo_documento,
+          nombre_rol:usuario.nombre_rol
+        }))
+      )
+    );
+  }
+
+  insertUsuarios(usuario: RegistroI): Observable<RegistroI> {
+    const headers = this.createHeaders();
+    const direccion = this.apiUrl + 'usuarios/insert';
+    return this.http.post<RegistroI>(direccion, usuario, { headers });
+  }
+
+  getAllRoles(): Observable<RolesI[]> {
+    const headers = this.createHeaders();
+    let direccion = this.apiUrl + 'roles/getAll';
+    return this.http.get<RolesI[]>(direccion, { headers });
+  }
+
+  getAllTipoDoc(): Observable<TipoDocI[]> {
+    const headers = this.createHeaders();
+    let direccion = this.apiUrl + 'tipos_documentos/getAll';
+    return this.http.get<TipoDocI[]>(direccion, { headers });
+  }
+
+  deleteUsuario(usuario:RegistroI):Observable<any>{
+    const headers=this.createHeaders();
+    const direccion=`${this.apiUrl}usuarios/delete`;
+    return this.http.delete<any>(direccion, { headers, body: usuario });
+  }
+
+ 
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
