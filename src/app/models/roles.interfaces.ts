@@ -1,4 +1,5 @@
 export interface RolesI{
-    id: number;
-    nombre: string;
+    id_rol: number;
+    nombre_rol: string;
+    estado_rg:number;
 }

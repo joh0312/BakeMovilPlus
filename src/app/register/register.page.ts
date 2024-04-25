@@ -16,7 +16,6 @@ import { TipoDocI } from 'src/app/models/tipoDocument.interface';
 
 export class RegisterPage implements OnInit {
   nuevoForm: FormGroup;
-  usuario: any=[];
   roles: RolesI[] = [];
   tipoDocs: TipoDocI[] = [];
   nombreClicked: boolean = false;
@@ -28,8 +27,7 @@ export class RegisterPage implements OnInit {
   emailClicked: boolean = false;
   tipoDocClicked: boolean = false;
   rolClicked: boolean = false;
-  currentPage: number = 1;
-  pageSize: number = 10; // Tamaño de la página
+
 
   constructor(private fb: FormBuilder, private api: AuthService, private router: Router) {
     this.nuevoForm = this.fb.group({
@@ -48,16 +46,9 @@ export class RegisterPage implements OnInit {
   ngOnInit(): void  {
     this.getRoles()
     this.getTipoDoc()
-    this.getUsuarios()
 
   }
 
-  getUsuarios() {
-    this.api.getAllUsuarios().subscribe(data => {
-      console.log(data)
-      this.usuario = data;
-    })
-  }
   insertUsuarios(form: RegistroI) {
     console.log(form);
     this.api.insertUsuarios(form).subscribe(data => {
@@ -83,28 +74,6 @@ export class RegisterPage implements OnInit {
     })
 
   }
-  deleteUsuario(usuario: RegistroI) {
-    this.api.deleteUsuario(usuario).subscribe(() => {
-      console.log('Usuario Eliminado Correctamente');
-      /*Swal.fire({
-        icon: "success",
-        title: "¡Eliminado!",
-        showConfirmButton: false,
-        timer: 1000
-      });*/
-      this.getUsuarios()
-    }, (error:any) => {
-      console.error('Error al eliminar el usuario:', error);
-      /*Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "ERROR",
-        footer: '<a href="">Intenta nuevamente</a>'
-      });*/
-    });
-
-  }
-
   salir() {
     this.router.navigate(['home'])
   }
@@ -186,8 +155,14 @@ validateNombre() {
     if (!this.telefonoClicked) {
       return false; // No mostrar error si no se ha hecho clic en el campo de apellido
     }
+      
     const telControl = this.nuevoForm.get('telefono_usuario');
-    if (telControl?.errors&& telControl?.value.toString().length == 0) {
+    
+    if(telControl?.value==null){
+      return null
+    }
+
+    if (telControl?.errors && telControl?.value.toString().length == 0) {
       return 'El telefono es requerido';
     } else if (telControl?.value.toString().length < 10) {
       return 'Al menos 10 numeros';
@@ -240,6 +215,7 @@ validateNombre() {
           this.tipoDocs = data;
         } else {
           this.tipoDocs = [data];
+          console.log(this.tipoDocs)
         }
       },
       error: (error:any) => {
@@ -281,38 +257,6 @@ validateNombre() {
   isFormValid(): boolean {
     return this.nuevoForm.valid; // Retorna true si el formulario es válido, de lo contrario retorna false
   }
-
-  getCurrentPageItems(): RegistroI[] {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    return this.usuario.slice(startIndex, endIndex);
-  }
-  getPages(): number[] {
-    const totalPages = this.getTotalPages();
-    return Array.from({ length: totalPages }, (_, index) => index + 1);
-  }
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.getTotalPages()) {
-      this.currentPage = page;
-    }
-  }
-
-  nextPage() {
-    if (this.currentPage < this.getTotalPages()) {
-      this.currentPage++;
-    }
-  }
-
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
-  getTotalPages(): number {
-    return Math.ceil(this.usuario.length / this.pageSize);
-  }
- 
 
 }
 

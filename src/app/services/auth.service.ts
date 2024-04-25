@@ -15,12 +15,12 @@ import { TipoDocI } from '../models/tipoDocument.interface';
 })
 export class AuthService {
 
-  private apiUrl = 'http://127.0.0.1:5000'; // URL base de tu API
+  private apiUrl = 'http://127.0.0.1:5000/'; // URL base de tu API
 
   constructor(private http: HttpClient) { }
 
   login(form: LoginI): Observable<ResponseI> {
-    let direccion = `${this.apiUrl}/usuarios/login`; // Agregar la barra diagonal aquí
+    let direccion = `${this.apiUrl}usuarios/login`; // Agregar la barra diagonal aquí
     return this.http.post<ResponseI>(direccion, form).pipe(
       map((response: any) => ({
         token: response.success.data.token,
@@ -88,8 +88,16 @@ export class AuthService {
 
   getAllRoles(): Observable<RolesI[]> {
     const headers = this.createHeaders();
-    let direccion = this.apiUrl + 'roles/getAll';
-    return this.http.get<RolesI[]>(direccion, { headers });
+    let direccion = this.apiUrl + 'roles/getAll';    
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) =>
+        response.success.data.map((role: any) => ({
+          id_rol:role.id_rol,
+          nombre_rol:role.nombre_rol,
+          estado_rg:role.estado_rg
+        }))
+      )
+    );
   }
 
   getAllTipoDoc(): Observable<TipoDocI[]> {
