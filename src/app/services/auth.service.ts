@@ -15,12 +15,12 @@ import { TipoDocI } from '../models/tipoDocument.interface';
 })
 export class AuthService {
 
-  private apiUrl = 'http://127.0.0.1:5000'; // URL base de tu API
+  private apiUrl = 'http://127.0.0.1:5000/'; // URL base de tu API
 
   constructor(private http: HttpClient) { }
 
   login(form: LoginI): Observable<ResponseI> {
-    let direccion = `${this.apiUrl}/usuarios/login`; // Agregar la barra diagonal aquí
+    let direccion = `${this.apiUrl}usuarios/login`; // Agregar la barra diagonal aquí
     return this.http.post<ResponseI>(direccion, form).pipe(
       map((response: any) => ({
         token: response.success.data.token,
@@ -48,7 +48,7 @@ export class AuthService {
 
   getAllMarcas(): Observable<marcasI[]> {
     const headers = this.createHeaders();
-    const direccion = `${this.apiUrl}/marcas/getAll`;
+    const direccion = `${this.apiUrl}marcas/getAll`;
     return this.http.get<any>(direccion, { headers }).pipe(
       map((response: any) => response.success.data.map((marca: any) => ({
         id_marca: marca.id_marca.toString(),
@@ -59,7 +59,7 @@ export class AuthService {
 
   getAllUsuarios(): Observable<RegistroI[]> {
     const headers = this.createHeaders();
-    let direccion = `${this.apiUrl}/usuarios/getAll`; // Agregar la barra diagonal aquí
+    let direccion = `${this.apiUrl}usuarios/getAll`; // Agregar la barra diagonal aquí
     return this.http.get<any>(direccion, { headers }).pipe(
       map((response) =>
         response.success.data.map((usuario: any) => ({
@@ -88,8 +88,16 @@ export class AuthService {
 
   getAllRoles(): Observable<RolesI[]> {
     const headers = this.createHeaders();
-    let direccion = this.apiUrl + 'roles/getAll';
-    return this.http.get<RolesI[]>(direccion, { headers });
+    let direccion = this.apiUrl + 'roles/getAll';    
+    return this.http.get<any>(direccion, { headers }).pipe(
+      map((response) =>
+        response.success.data.map((role: any) => ({
+          id_rol:role.id_rol,
+          nombre_rol:role.nombre_rol,
+          estado_rg:role.estado_rg
+        }))
+      )
+    );
   }
 
   getAllTipoDoc(): Observable<TipoDocI[]> {
@@ -102,6 +110,12 @@ export class AuthService {
     const headers=this.createHeaders();
     const direccion=`${this.apiUrl}usuarios/delete`;
     return this.http.delete<any>(direccion, { headers, body: usuario });
+  }
+
+  updateUsuarios(usuario: RegistroI):Observable<any> {
+    const headers = this.createHeaders();
+    const direccion = `${this.apiUrl}usuarios/update`;
+    return this.http.put<any>(direccion, usuario, { headers });
   }
 
  

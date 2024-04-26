@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Usuarios Tabla</ion-title>
+  </ion-toolbar>
+</ion-header>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<ion-content class="content">
+  <table class="tabla">
+    <ngx-datatable [rows]="usuario" [columns]="columns" class="mi-datatable">
+      <ngx-datatable-column name="id_usuario" prop="id_usuario" ></ngx-datatable-column>
+      <ngx-datatable-column name="id_rol" prop="id_rol" ></ngx-datatable-column>
+      <ngx-datatable-column name="id_tipo_doc" prop="id_tipo_documento" ></ngx-datatable-column>
+      <ngx-datatable-column name="nombre_tipo_doc" prop="nombre_tipo_documento"></ngx-datatable-column>
+      <ngx-datatable-column name="doc" prop="doc_usuario"></ngx-datatable-column>
+      <ngx-datatable-column name="nombre" prop="nombre_usuario"></ngx-datatable-column>
+      <ngx-datatable-column name="apellido" prop="apellido_usuario"></ngx-datatable-column>
+      <ngx-datatable-column name="telefono" prop="telefono_usuario"></ngx-datatable-column>
+      <ngx-datatable-column name="Correo" prop="email_usuario"></ngx-datatable-column>
+    
+     
+     
+    </ngx-datatable>
+  </table>
+
+</ion-content>

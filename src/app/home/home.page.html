@@ -6,7 +6,40 @@
   </ion-header>
   <ion-content class="ion-padding">
     <!-- Agrega la clase "custom-button" al botón -->
-    <ion-button class="custom-button">Default</ion-button>
+    <ion-accordion-group>
+      <ion-accordion value="first">
+        <ion-item slot="header" color="light">
+          <ion-label>Administar Usuarios</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-button size="small" fill="outline" shape="round" color="dark" class="signinbtn" routerLink="/register">
+            Registrar
+          </ion-button>
+          <ion-button size="small" fill="outline" shape="round" color="dark" class="btn-adminusuarios" routerLink="/tablausuarios">
+            Consultar
+          </ion-button>
+
+        </div>
+
+      </ion-accordion>
+      <ion-accordion value="second">
+        <ion-item slot="header" color="light">
+          <ion-label>Administrar Roles</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-button size="small" fill="outline" shape="round" color="dark" class="btn-roles" routerLink="/roles">
+            Roles
+          </ion-button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="third">
+        <ion-item slot="header" color="light">
+          <ion-label>Third Accordion</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">Third Content</div>
+      </ion-accordion>
+    </ion-accordion-group>
+   
   </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
@@ -20,8 +53,12 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-card>
-      <ion-img src="assets/images/header1.png"   style="width: 100%;"></ion-img>
+      <ion-img src="assets/images/header1.png" style="width: 100%;"></ion-img>
     </ion-card>
-    
+
+    <ion-card class="logo">
+      <ion-img src="assets/images/logo_glass.png" style="width: 100%;"></ion-img>
+    </ion-card>
+
   </ion-content>
 </div>

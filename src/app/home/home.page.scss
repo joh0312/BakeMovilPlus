@@ -1,9 +1,38 @@
 /* Estilos para un botón específico */
-.custom-button {
+.btn-usuarios {
     width: 100%; /* Alarga el botón */
     --background: #e66013
     ; /* Cambia el color de fondo del botón a naranja */
   
+  
+}
+
+.btn-roles {
+  width: 100%; /* Alarga el botón */
+  --background: #e66013
+  ; /* Cambia el color de fondo del botón a naranja */
+
+}
+
+.btn-registrar {
+  width: 100%; /* Alarga el botón */
+  --background: #e66013
+  ; /* Cambia el color de fondo del botón a naranja */
+
+}
+
+.btn-adminusuarios {
+  width: 100%; /* Alarga el botón */
+  --background: #e66013
+  ; /* Cambia el color de fondo del botón a naranja */
+
+}
+
+.signinbtn{
+  width: 100%; /* Alarga el botón */
+  --background: #e66013
+  ; /* Cambia el color de fondo del botón a naranja */
+
 }
 
 ion-menu-button {
@@ -11,11 +40,27 @@ ion-menu-button {
   }
 
 
-  ion-card{
+  ion-card {
     --ion-background-color: transparent !important;
-      box-shadow: none !important;
-      background-color: transparent !important;
-      width: 100%
+    box-shadow: none !important;
+    background-color: transparent !important;
+    width: calc(100% - 1px); /* Ancho del 100% menos 20px de margen */
+    margin-top: 0px; /* Margen superior para posicionarlo debajo del encabezado */
+    margin-left: 0px; /* Margen izquierdo para centrarlo */
+    margin-right: 10px; /* Margen derecho para centrarlo */
+    border: none !important;
+  }
+
+
+  .logo{
+    --ion-background-color: transparent !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    width: calc(100% - 1px); /* Ancho del 100% menos 20px de margen */
+    margin-top: -10px; /* Margen superior para posicionarlo debajo del encabezado */
+    margin-left: 0px; /* Margen izquierdo para centrarlo */
+    margin-right: 10px; /* Margen derecho para centrarlo */
+    border: none !important;
   }
   
   
@@ -24,6 +69,17 @@ ion-menu-button {
   ion-content{
     --ion-background-color:#E1EAF9 !important;
     --ion-item-background: transparent !important;
+    position:relative;
+    border: none !important;
+   
+
   }
+
+  .ion-padding {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
 
   

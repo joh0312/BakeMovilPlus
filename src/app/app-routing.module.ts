@@ -18,7 +18,15 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },  {
+    path: 'tablausuarios',
+    loadChildren: () => import('./tablausuarios/tablausuarios.module').then( m => m.TablausuariosPageModule)
   },
+  {
+    path: 'roles',
+    loadChildren: () => import('./roles/roles.module').then( m => m.RolesPageModule)
+  },
+
 ];
 
 @NgModule({

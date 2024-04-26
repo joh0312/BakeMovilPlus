@@ -44,8 +44,7 @@
         <ion-item>
           <ion-select label="Tipo de documento" formControlName="id_tipo_documento" interface="action-sheet"
             [ngClass]="{ 'is-invalid': validaTipoDoc() }" (click)="onTipoDocClicked()">
-            <ion-select-option value="cc">Cédula de Ciudadanía</ion-select-option>
-            <ion-select-option value="ti">Tarjeta de Identidad</ion-select-option>
+            <ion-select-option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc.id">{{ tipoDoc.nombre }}</ion-select-option>
           </ion-select>
         </ion-item>
         <div class="text-danger mt-1" *ngIf="validaTipoDoc()">
@@ -110,16 +109,14 @@
           <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaRol() }"></div>
           <ion-select label="Selecciona un rol" formControlName="id_rol" interface="action-sheet" class="form-select form-select-lg"
             [ngClass]="{ 'is-invalid': validaRol() }" (click)="onRolClicked()">
-            <ion-select-option value="ADMIN">Administrador</ion-select-option>
-            <ion-select-option value="PANADERO">Panadero</ion-select-option>
-            <ion-select-option value="vendedor">Vendedor</ion-select-option>
+            <ion-select-option *ngFor="let rol of roles" [value]="rol.id_rol">{{ rol.nombre_rol }}</ion-select-option>
           </ion-select>
         </ion-item>
 
 
 
         <div class="sign-btn-wrap">
-          <ion-button shape="round" type="submit" fill="solid" class="sign-btn">Registrar</ion-button>
+          <ion-button shape="round" type="submit" fill="solid" class="sign-btn" [disabled]="!isFormValid()">Registrar</ion-button>
         </div>
 
 
