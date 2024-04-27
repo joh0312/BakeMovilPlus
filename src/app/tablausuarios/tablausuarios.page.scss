@@ -1,31 +1,27 @@
-.content {
-  --ion-background-color: #E1EAF9; /* Fondo negro para el contenido */
+/* Agrega esto a tu archivo de estilos globales o locales */
+.table-header {
+  background-color: var(--ion-color-primary-tint);
+  color: var(--ion-color-primary-contrast);
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.tabla {
-  width: 100%;
-  border-collapse: collapse;
+.table-row {
+  padding: 10px;
+  border-bottom: 1px solid var(--ion-color-light);
 }
 
-.mi-datatable th,
-.mi-datatable td {
-  padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid orange; /* Borde inferior naranja para las celdas */
-  color: orange; /* Color del texto naranja */
-  width: 10%; /* Ancho relativo del 10% para las celdas */
+.table-row:last-child {
+  border-bottom: none;
 }
 
-.mi-datatable th {
-  --ion-background-color: orange; /* Fondo naranja para las celdas de encabezado */
+.text-center {
+  text-align: center;
 }
 
-.mi-datatable tbody tr:nth-child(even) {
-  --ion-background-color: #E1EAF9; /* Fondo negro para filas pares */
+.ion-padding {
+  padding: 10px;
 }
 
-.mi-datatable tbody tr:nth-child(odd) {
-  --ion-background-color: #333; /* Fondo gris oscuro para filas impares */
-}
 
 

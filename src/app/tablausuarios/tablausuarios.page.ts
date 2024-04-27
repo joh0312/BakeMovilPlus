@@ -16,7 +16,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 export class TablausuariosPage implements OnInit {
 
   
- usuario: RegistroI[] = []; // Inicializa la propiedad 'columns' aquí
+ usuarios: RegistroI[] = []; // Inicializa la propiedad 'columns' aquí
   columns = [
     
       { prop: 'id_usuario', name: 'id_usuario' },
@@ -54,7 +54,7 @@ export class TablausuariosPage implements OnInit {
     this.api.getAllUsuarios().subscribe(
       (data: RegistroI[]) => {
         console.log(data);
-        this.usuario = data; // Cambia 'usuario' por 'usuarios'
+        this.usuarios = data; // Cambia 'usuario' por 'usuarios'
       },
       (error) => {
         console.error('Error al obtener usuarios:', error);

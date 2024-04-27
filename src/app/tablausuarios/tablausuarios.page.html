@@ -1,26 +1,54 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Usuarios Tabla</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Usuarios
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<ion-content class="content">
-  <table class="tabla">
-    <ngx-datatable [rows]="usuario" [columns]="columns" class="mi-datatable">
-      <ngx-datatable-column name="id_usuario" prop="id_usuario" ></ngx-datatable-column>
-      <ngx-datatable-column name="id_rol" prop="id_rol" ></ngx-datatable-column>
-      <ngx-datatable-column name="id_tipo_doc" prop="id_tipo_documento" ></ngx-datatable-column>
-      <ngx-datatable-column name="nombre_tipo_doc" prop="nombre_tipo_documento"></ngx-datatable-column>
-      <ngx-datatable-column name="doc" prop="doc_usuario"></ngx-datatable-column>
-      <ngx-datatable-column name="nombre" prop="nombre_usuario"></ngx-datatable-column>
-      <ngx-datatable-column name="apellido" prop="apellido_usuario"></ngx-datatable-column>
-      <ngx-datatable-column name="telefono" prop="telefono_usuario"></ngx-datatable-column>
-      <ngx-datatable-column name="Correo" prop="email_usuario"></ngx-datatable-column>
-    
-     
-     
-    </ngx-datatable>
-  </table>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="table-header">
+      <ion-col>
+        <strong>Nombre</strong>
+      </ion-col>
+      <ion-col>
+        <strong>Rol</strong>
+      </ion-col>
+      <ion-col class="text-center">
+        <strong>Opciones</strong>
+      </ion-col>
+    </ion-row>
 
+    <ion-row *ngFor="let usuario of usuarios" class="table-row">
+      <ion-col>
+        {{usuario.nombre_usuario}}
+      </ion-col>
+      <ion-col>
+        {{usuario.nombre_rol}}
+      </ion-col>
+      <ion-col class="text-center">
+        <ion-button size="small" color="danger" fill="clear">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-button size="small" color="warning" fill="clear">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="success">
+        <ion-icon name="add"></ion-icon>
+        Agregar Usuario
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
