@@ -50,11 +50,6 @@
         <div class="text-danger mt-1" *ngIf="validaTipoDoc()">
           <p class="fs-6">{{ validaTipoDoc() }}</p>
         </div>
-
-
-
-
-
         <ion-item>
           <ion-input type="number" placeholder="Documento" formControlName="doc_usuario"
             class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateDocument() }"

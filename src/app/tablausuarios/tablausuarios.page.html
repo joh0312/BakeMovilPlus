@@ -34,21 +34,118 @@
         <ion-button size="small" color="danger" fill="clear">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
-        <ion-button size="small" color="warning" fill="clear">
+        <ion-button size="small" color="warning" fill="clear" id="open-modal" (click)="setOpen(true, usuario)">
           <ion-icon name="create-outline"></ion-icon>
         </ion-button>
+        
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button color="success">
-        <ion-icon name="add"></ion-icon>
-        Agregar Usuario
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+
+  <!-- Modal para editar el usuario seleccionado -->
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Editar Usuario</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="close()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="nuevoForm" (ngSubmit)="updateUsuario(nuevoForm.value)">
+          <ion-item>
+            <ion-input type="text" formControlName="nombre_usuario"
+              [ngClass]="{ 'is-invalid': validateNombre() }" (click)="onNombreClicked()"></ion-input>
+            <ion-icon name="person-outline"></ion-icon>
+          </ion-item>
+          <div class="error-message mt-1" *ngIf="validateNombre()">
+            <p class="fs-6">{{ validateNombre() }}</p>
+          </div>
+    
+    
+          <ion-item>
+            <ion-input type="text" placeholder="Apelllido" formControlName="apellido_usuario"
+              [ngClass]="{ 'is-invalid': validateApellido() }" (click)="onApellidoClicked()"></ion-input>
+            <ion-icon name="person-add-outline"></ion-icon>
+          </ion-item>
+          <div class="text-danger mt-1" *ngIf="validateApellido()">
+            <p class="fs-6">{{ validateApellido() }}</p>
+          </div>
+    
+          <ion-item>
+            <ion-select label="Tipo de documento" formControlName="id_tipo_documento" interface="action-sheet"
+              [ngClass]="{ 'is-invalid': validaTipoDoc() }" (click)="onTipoDocClicked()">
+              <ion-select-option *ngFor="let tipoDoc of tipoDocs" [value]="tipoDoc.id">{{ tipoDoc.nombre }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="text-danger mt-1" *ngIf="validaTipoDoc()">
+            <p class="fs-6">{{ validaTipoDoc() }}</p>
+          </div>
+          <ion-item>
+            <ion-input type="number" placeholder="Documento" formControlName="doc_usuario"
+              class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateDocument() }"
+              (click)="onDocClicked()"></ion-input>
+            <ion-icon name="document-text-outline"></ion-icon>
+          </ion-item>
+          <div class="text-danger mt-1" *ngIf="validateDocument()">
+            <p class="fs-6">{{ validateDocument() }}</p>
+          </div>
+    
+          <ion-item>
+            <ion-input type="number" placeholder="Telefono" formControlName="telefono_usuario"
+              class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateTel() }"
+              (click)="onTelClicked()"></ion-input>
+            <ion-icon name="call-outline"></ion-icon>
+          </ion-item>
+          <div class="text-danger mt-1" *ngIf="validateTel()">
+            <p class="fs-6">{{ validateTel() }}</p>
+          </div>
+    
+          <ion-item>
+            <ion-input type="text" placeholder="Email" formControlName="email_usuario"
+              class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateEmail() }"></ion-input>
+            <ion-icon name="mail-outline"></ion-icon>
+          </ion-item>
+          <div class="text-danger mt-1" *ngIf="validateEmail()">
+            <p class="fs-6">Email ingresado no es válido!</p>
+          </div>
+    
+    
+          <ion-item>
+            <ion-input type="password" placeholder="************" formControlName="password_usuario"
+              class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validatePassword() }"
+              (click)="onPassClicked()"></ion-input>
+            <ion-icon name="lock-closed"></ion-icon>
+          </ion-item>
+          <div class="text-danger mt-1" *ngIf="validatePassword()">
+            <p class="fs-6">{{ validatePassword() }}</p>
+          </div>
+    
+          <ion-item>
+            <ion-input type="password" placeholder="Confirmar contraseña" formControlName="cPassword_usuario"
+              class="form-control form-control-lg" [ngClass]="{ 'is-invalid': validateCPassword() }"
+              (click)="onCPassClicked()"></ion-input>
+            <ion-icon name="lock-closed"></ion-icon>
+          </ion-item>
+          <div class="text-danger mt-1" *ngIf="validateCPassword()">
+            <p class="fs-6">{{ validateCPassword() }}</p>
+          </div>
+    
+          <ion-item>
+            <div class="form-outline mb-4" [ngClass]="{ 'has-error': validaRol() }"></div>
+            <ion-select label="Selecciona un rol" formControlName="id_rol" interface="action-sheet" class="form-select form-select-lg"
+              [ngClass]="{ 'is-invalid': validaRol() }" (click)="onRolClicked()">
+              <ion-select-option *ngFor="let rol of roles" [value]="rol.id_rol">{{ rol.nombre_rol }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="sign-btn-wrap tex text-center">
+            <ion-button shape="round" type="submit" fill="solid" class="sign-btn" [disabled]="!isFormValid()">Actualizar</ion-button>
+          </div>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

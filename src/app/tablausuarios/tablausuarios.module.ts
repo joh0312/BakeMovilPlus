@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { TablausuariosPageRoutingModule } from './tablausuarios-routing.module';
 import { TablausuariosPage } from './tablausuarios.page';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable'; // Importa NgxDatatableModule
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable'; // Importa NgxData
     FormsModule,
     IonicModule,
     TablausuariosPageRoutingModule,
-    NgxDatatableModule // Asegúrate de importar NgxDatatableModule aquí
+    NgxDatatableModule,
+    ReactiveFormsModule, 
   ],
   declarations: [TablausuariosPage]
 })
