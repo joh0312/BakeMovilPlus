@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { Router } from '@angular/router';
-import { RegistroI } from 'src/app/models/registro.interface';
+import { RegistroI, UsuarioUpdateI } from 'src/app/models/registro.interface';
 import { RolesI } from 'src/app/models/roles.interfaces';
 import { AuthService } from '../services/auth.service';
 import { TipoDocI } from 'src/app/models/tipoDocument.interface';
@@ -19,6 +19,8 @@ export class TablausuariosPage implements OnInit {
   nuevoForm: FormGroup;
   isModalOpen = false;
   usuarioSeleccionado: RegistroI | undefined;
+  updateusuario: any;
+
  usuarios: RegistroI[] = [];
  tipoDocs: TipoDocI[] = [];
  roles: RolesI[] = [];
@@ -35,6 +37,7 @@ export class TablausuariosPage implements OnInit {
 
   constructor(private fb: FormBuilder, private api: AuthService, private router: Router, private ngx: NgxDatatableModule) {
     this.nuevoForm = this.fb.group({
+      id_usuario:['', Validators.required],
       id_tipo_documento: ['', Validators.required],
       id_rol: ['', Validators.required],
       nombre_usuario: ['', Validators.required],
@@ -44,6 +47,7 @@ export class TablausuariosPage implements OnInit {
       email_usuario: ['', [Validators.required, Validators.email]],
       doc_usuario: ['', Validators.required],
       apellido_usuario: ['', Validators.required],
+    
     });
     
 
@@ -71,32 +75,36 @@ export class TablausuariosPage implements OnInit {
   
 
   deleteUsuario(usuario: RegistroI) {
+    usuario.estado_rg=0
     this.api.deleteUsuario(usuario).subscribe(() => {
       console.log('Usuario Eliminado Correctamente');
       alert('Usuario Eliminado Correctamente')
-      /*Swal.fire({
-        icon: "success",
-        title: "¡Eliminado!",
-        showConfirmButton: false,
-        timer: 1000
-      });*/
+   
       this.getUsuarios()
     }, (error) => {
       console.error('Error al eliminar el usuario:', error);
       
-      /*Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "ERROR",
-        footer: '<a href="">Intenta nuevamente</a>'
-      });*/
+     
     });
 
   }
 
-  updateUsuario(form: RegistroI) {
-    console.log(form);
-    this.api.updateUsuarios(form).subscribe(data => {
+  updateUsuario(form: UsuarioUpdateI) {
+      // Asigna los datos del formulario al objeto updateUsuario
+
+  this.updateusuario = {
+    id_usuario: form.id_usuario,
+    id_rol: form.id_rol,
+    id_tipo_documento: form.id_tipo_documento,
+    doc_usuario: form.doc_usuario,
+    password_usuario: form.password_usuario,
+    nombre_usuario: form.nombre_usuario,
+    apellido_usuario: form.apellido_usuario,
+    telefono_usuario: form.telefono_usuario,
+    email_usuario: form.email_usuario,
+  };
+  console.log(this.updateusuario)
+    this.api.updateUsuarios(this.updateusuario).subscribe(data => {
       console.log(data)
       if (data) {
         alert('Se ha actualizado correctamente')
@@ -300,6 +308,7 @@ validateNombre() {
   patchForm() {
     if (this.usuarioSeleccionado) {
       this.nuevoForm.patchValue({
+        id_usuario: this.usuarioSeleccionado.id_usuario,
         nombre_usuario: this.usuarioSeleccionado.nombre_usuario,
         apellido_usuario: this.usuarioSeleccionado.apellido_usuario,
         telefono_usuario: this.usuarioSeleccionado.telefono_usuario,

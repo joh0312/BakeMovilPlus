@@ -18,6 +18,9 @@
       <ion-col>
         <strong>Rol</strong>
       </ion-col>
+      <ion-col>
+        <strong>Estado</strong>
+      </ion-col>
       <ion-col class="text-center">
         <strong>Opciones</strong>
       </ion-col>
@@ -29,6 +32,15 @@
       </ion-col>
       <ion-col>
         {{usuario.nombre_rol}}
+      </ion-col>
+      <ion-col *ngIf="usuario.estado_rg === 1" class="punto-verde">
+      </ion-col>
+      <ion-col *ngIf="usuario.estado_rg === 0" class="punto-rojo">
+        
+      </ion-col>
+
+      <ion-col>
+       
       </ion-col>
       <ion-col class="text-center">
         <ion-button size="small" color="danger" fill="clear" (click)="deleteUsuario(usuario)">

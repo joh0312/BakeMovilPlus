@@ -28,3 +28,19 @@
 } 
 
 
+.punto-verde {
+  height: 4px;
+  width: 2px;
+  background-color:#10c469;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.punto-rojo {
+  height: 4px;
+  width: 2px;
+  background-color:#ff0707;
+  border-radius: 50%;
+  display: inline-block;
+}
+

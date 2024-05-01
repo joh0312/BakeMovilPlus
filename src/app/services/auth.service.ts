@@ -74,7 +74,7 @@ export class AuthService {
           telefono_usuario: usuario.telefono_usuario,
           email_usuario: usuario.email_usuario,
           nombre_tipo_documento:usuario.nombre_tipo_documento,
-          nombre_rol:usuario.nombre_rol
+          nombre_rol:usuario.nombre_rol, estado_rg: usuario.estado_rg
         }))
       )
     );
