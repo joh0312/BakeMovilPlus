@@ -74,11 +74,11 @@ export class TablausuariosPage implements OnInit {
   }
   
 
-  deleteUsuario(usuario: RegistroI) {
+  desactivarUsuario(usuario: RegistroI) {
     usuario.estado_rg=0
     this.api.deleteUsuario(usuario).subscribe(() => {
       console.log('Usuario Eliminado Correctamente');
-      alert('Usuario Eliminado Correctamente')
+      alert('Usuario desactivado Correctamente')
    
       this.getUsuarios()
     }, (error) => {
@@ -89,6 +89,20 @@ export class TablausuariosPage implements OnInit {
 
   }
 
+  activarUsuario(usuario: RegistroI) {
+    usuario.estado_rg=1
+    this.api.deleteUsuario(usuario).subscribe(() => {
+      console.log('Usuario Eliminado Correctamente');
+      alert('Usuario activado Correctamente')
+   
+      this.getUsuarios()
+    }, (error) => {
+      console.error('Error al eliminar el usuario:', error);
+      
+     
+    });
+
+  }
   updateUsuario(form: UsuarioUpdateI) {
       // Asigna los datos del formulario al objeto updateUsuario
 

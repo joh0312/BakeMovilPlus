@@ -27,25 +27,21 @@
     </ion-row>
 
     <ion-row *ngFor="let usuario of usuarios" class="table-row">
-      <ion-col>
+      <ion-col class="text-center">
         {{usuario.nombre_usuario}}
       </ion-col>
-      <ion-col>
+      <ion-col class="text-center">
         {{usuario.nombre_rol}}
       </ion-col>
-      <ion-col *ngIf="usuario.estado_rg === 1" class="punto-verde">
-      </ion-col>
-      <ion-col *ngIf="usuario.estado_rg === 0" class="punto-rojo">
-        
-      </ion-col>
-
-      <ion-col>
-       
-      </ion-col>
       <ion-col class="text-center">
-        <ion-button size="small" color="danger" fill="clear" (click)="deleteUsuario(usuario)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
+        <ion-button *ngIf="usuario.estado_rg === 1" size="medium" color="success" fill="clear" (click)="desactivarUsuario(usuario)">
+        <ion-icon name="toggle"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="usuario.estado_rg === 0" size="medium" color="danger" fill="clear" (click)="activarUsuario(usuario)">
+        <ion-icon name="toggle-outline"></ion-icon>
+      </ion-button></ion-col>
+      <ion-col class="text-center">
+       
         <ion-button size="small" color="warning" fill="clear" id="open-modal" (click)="setOpen(true, usuario)">
           <ion-icon name="create-outline"></ion-icon>
         </ion-button>
@@ -61,9 +57,6 @@
       <ion-header>
         <ion-toolbar>
           <ion-title>Editar Usuario</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="close()">Cerrar</ion-button>
-          </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">

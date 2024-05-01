@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { marcasI } from 'src/app/models/marcas.interface';
 import { LoginI } from '../models/login.interface';
 import { ResponseI } from '../models/response.interface';
-import { RegistroI } from '../models/registro.interface';
+import { RegistroI, UsuarioUpdateI } from '../models/registro.interface';
 import { RolesI } from '../models/roles.interfaces';
 import { TipoDocI } from '../models/tipoDocument.interface';
 
@@ -112,7 +112,7 @@ export class AuthService {
     return this.http.delete<any>(direccion, { headers, body: usuario });
   }
 
-  updateUsuarios(usuario: RegistroI):Observable<any> {
+  updateUsuarios(usuario:  UsuarioUpdateI):Observable<any> {
     const headers = this.createHeaders();
     const direccion = `${this.apiUrl}usuarios/update`;
     return this.http.put<any>(direccion, usuario, { headers });

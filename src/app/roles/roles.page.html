@@ -23,24 +23,29 @@
       </ion-col>
     </ion-row>
 
-    <ion-row class="table-row">
-      <ion-col>
-       
-      </ion-col>
-      <ion-col>
-        
+    <ion-row *ngFor="let rol of roles" class="table-row">
+      <ion-col class="text-center">
+        {{rol.nombre_rol}}
       </ion-col>
       <ion-col class="text-center">
-        <ion-button size="small" color="danger" fill="clear">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
-        <ion-button size="small" color="warning" fill="clear" id="open-modal" >
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
+        <ion-button *ngIf="rol.estado_rg === 1" size="medium" color="success" fill="clear" (click)="desactivarRol(rol)">
+        <ion-icon name="toggle"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="rol.estado_rg === 0" size="medium" color="danger" fill="clear" (click)="activarRol(rol)">
+        <ion-icon name="toggle-outline"></ion-icon>
+      </ion-button></ion-col>
+      <ion-col class="text-center">
+       
+        
         
       </ion-col>
     </ion-row>
+
   </ion-grid>
+
+  <ion-button size="small" color="warning" fill="clear" id="open-modal">
+    <ion-icon name="create-outline"></ion-icon>
+  </ion-button>
 
 
  
