@@ -73,6 +73,7 @@ export class TablausuariosPage implements OnInit {
   deleteUsuario(usuario: RegistroI) {
     this.api.deleteUsuario(usuario).subscribe(() => {
       console.log('Usuario Eliminado Correctamente');
+      alert('Usuario Eliminado Correctamente')
       /*Swal.fire({
         icon: "success",
         title: "¡Eliminado!",
@@ -82,6 +83,7 @@ export class TablausuariosPage implements OnInit {
       this.getUsuarios()
     }, (error) => {
       console.error('Error al eliminar el usuario:', error);
+      
       /*Swal.fire({
         icon: "error",
         title: "Oops...",

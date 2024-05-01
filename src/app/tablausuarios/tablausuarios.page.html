@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="#e66013">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -31,7 +31,7 @@
         {{usuario.nombre_rol}}
       </ion-col>
       <ion-col class="text-center">
-        <ion-button size="small" color="danger" fill="clear">
+        <ion-button size="small" color="danger" fill="clear" (click)="deleteUsuario(usuario)">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
         <ion-button size="small" color="warning" fill="clear" id="open-modal" (click)="setOpen(true, usuario)">

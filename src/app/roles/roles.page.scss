@@ -1,0 +1,31 @@
+/* Agrega esto a tu archivo de estilos globales o locales */
+.table-header {
+    background-color:#e66013;
+    color: var(--ion-color-primary-contrast);
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .table-row {
+    padding: 10px;
+    border-bottom: 1px solid var(--ion-color-light);
+  }
+  
+  .table-row:last-child {
+    border-bottom: none;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .ion-padding {
+    padding: 10px;
+  }
+  
+  .ion-header{
+    background-color:#e66013;
+  } 
+  
+  
+  
