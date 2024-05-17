@@ -31,8 +31,21 @@ const routes: Routes = [
     loadChildren: () => import('./roles/roles.module').then( m => m.RolesPageModule),
     canActivate: [AuthGuard] // Protege esta ruta con el guard
   },
+  {
+    path: 'recetas-form',
+    loadChildren: () => import('./recetas-form/recetas-form.module').then( m => m.RecetasFormPageModule),
+    canActivate: [AuthGuard] // Protege esta ruta con el guard
+  },
+  {
+    path: 'marcas-form',
+    loadChildren: () => import('./marcas-form/marcas-form.module').then( m => m.MarcasFormPageModule),
+    canActivate: [AuthGuard] // Protege esta ruta con el guard
+  },
   // Define una ruta comodín que redirige a /home si no coincide con ninguna otra ruta
-  { path: '**', redirectTo: 'home' } // Eliminé canActivate aquí
+  { path: '**', redirectTo: 'home' }   
+
+
+// Eliminé canActivate aquí
 ];
 
 @NgModule({

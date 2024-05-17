@@ -1,0 +1,64 @@
+ion-content {
+    --background: #E1EAF9; // Cambiar el color de fondo según sea necesario
+  }
+  
+  img {
+    margin: 0 auto; // Centrar la imagen horizontalmente
+  }
+  
+  ion-title {
+    text-align: center; // Centrar el título en la barra de navegación
+  }
+  
+  .form-container {
+    max-width: 300px;
+    margin: 0 auto; // Centrar el formulario horizontalmente
+  }
+  
+
+  
+
+  .btn-registrar{
+    --ion-background: #e9702b;
+  }
+
+  .custom-button {
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+  }
+
+
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;  /* Ajusta el ancho de la imagen según sea necesario */
+    
+    
+    height: auto;  /* Mantén la proporción de la imagen */
+  }
+  
+  .centered-image {
+    max-width: 21px; /* Ajusta según sea necesario */
+    height: auto;
+ 
+  }
+
+  .ion-text-end {
+    text-align: right;
+  }
+
+
+  :root {
+    --ion-color-primary: #e66013; /* Color del botón Registrar */
+    --ion-color-primary-rgb: 230, 96, 19;
+  }
+
+  
+  ion-toolbar {
+    --ion-background-color: var(--ion-color-primary);
+  }
+  
+
+
+  

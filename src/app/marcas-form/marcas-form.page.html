@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Registro de marcas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="ion-text-end">
+    <ion-img src="assets/images/logo_glass.png" alt="login-icon" class="right-aligned-image"></ion-img>
+  </div>
+  <br><br>
+  <h5 class="ion-text-center ion-text-uppercase ion-padding-top">Registro de marcas</h5>
+  <br>
+  <form [formGroup]="nuevoMarca" (ngSubmit)="insertMarca(nuevoMarca.value)">
+    <!---Marca-->
+    <div class="ion-margin">
+      <ion-input type="text" placeholder="Nombre de la marca" formControlName="nombre_marca" clearInput></ion-input>
+      <ion-text color="danger" *ngIf="validateNombre_marca()">
+        <p class="ion-text-wrap">{{validateNombre_marca()}}</p>
+      </ion-text>
+    </div>
+    <!---Registrar-->
+    <div class="ion-margin">
+      <ion-button class="btn-registrar" expand="block" style="--background: #e66013;" type="submit" [disabled]="!isFormValid()">
+        Registrar
+      </ion-button>
+    </div>
+    <!---Ver Tabla-->
+    <div class="ion-margin">
+      <ion-button expand="block" color="secondary">
+        Ver Tabla
+      </ion-button>
+    </div>
+    <!---Volver-->
+    <div class="ion-margin">
+      <ion-button expand="block" color="light" [routerLink]="['/home']">
+        Volver
+      </ion-button>
+    </div>
+  </form>
+</ion-content>
+
+

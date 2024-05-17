@@ -118,6 +118,19 @@ export class AuthService {
     return this.http.put<any>(direccion, usuario, { headers });
   }
 
+
+  insertMarca(marca: marcasI): Observable<any> {
+    const headers = this.createHeaders();
+    const direccion = `${this.apiUrl}/marcas/insert`;
+    return this.http.post<any>(direccion, marca, { headers });
+  }
+
+  deleteMarca(marca: marcasI): Observable<any> {
+    const headers = this.createHeaders();
+    const direccion = `${this.apiUrl}/marcas/delete`;
+    return this.http.delete<any>(direccion, { headers, body: marca });
+  }
+
  
 
 
