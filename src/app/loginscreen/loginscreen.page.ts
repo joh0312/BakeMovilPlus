@@ -4,6 +4,7 @@ import { Router } from '@angular/router'; // Importa Router desde @angular/route
 import { ResponseI } from '../models/response.interface'; // Importa ResponseI desde '../models/response.interface'
 import { LoginI } from 'src/app/models/login.interface';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-loginscreen',
@@ -19,7 +20,7 @@ export class LoginscreenPage implements OnInit {
 
   constructor(
     private authService: AuthService,
-
+    private alertController: AlertController,
     private router: Router, // Inyecta Router en el constructor
     private fb: FormBuilder
 
@@ -29,6 +30,17 @@ export class LoginscreenPage implements OnInit {
       contraseña: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
+
+    // Método para mostrar la alerta
+    async presentAlert(header: string, message: string) {
+      const alert = await this.alertController.create({
+        header,
+        message,
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+    }
 
   ngOnInit(): void {
     
@@ -53,7 +65,7 @@ export class LoginscreenPage implements OnInit {
           localStorage.setItem("token", dataResponse.token);
           localStorage.setItem("usuario", dataResponse.usuario);
           this.router.navigate(['/home']); // Usa Router para navegar a 'home'
-          alert("Has ingresado correctamente");
+          this.presentAlert('Inicio de Sesión', 'Inicio de sesión exitoso');
           // Utiliza Swal si estás mostrando una alerta
           // Swal.fire({
           //   icon: "success",
@@ -66,7 +78,7 @@ export class LoginscreenPage implements OnInit {
       },
       (err)  => {
         console.error(err);
-        alert("Usuario o Contraseña incorrecta");
+        this.presentAlert('Inicio de Sesión', 'Usuario o Contraseña incorrecta');
       }
     );
   }

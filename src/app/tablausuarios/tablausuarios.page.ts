@@ -8,7 +8,7 @@ import { RolesI } from 'src/app/models/roles.interfaces';
 import { AuthService } from '../services/auth.service';
 import { TipoDocI } from 'src/app/models/tipoDocument.interface';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tablausuarios',
@@ -35,7 +35,7 @@ export class TablausuariosPage implements OnInit {
  rolClicked: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private api: AuthService, private router: Router, private ngx: NgxDatatableModule) {
+  constructor(private fb: FormBuilder, private api: AuthService, private router: Router, private ngx: NgxDatatableModule, private alertController: AlertController) {
     this.nuevoForm = this.fb.group({
       id_usuario:['', Validators.required],
       id_tipo_documento: ['', Validators.required],
@@ -52,6 +52,18 @@ export class TablausuariosPage implements OnInit {
     
 
   }
+
+
+    // Método para mostrar la alerta
+    async presentAlert(header: string, message: string) {
+      const alert = await this.alertController.create({
+        header,
+        message,
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+    }
 
   ngOnInit() {
     this.getUsuarios();
@@ -78,7 +90,7 @@ export class TablausuariosPage implements OnInit {
     usuario.estado_rg=0
     this.api.deleteUsuario(usuario).subscribe(() => {
       console.log('Usuario Eliminado Correctamente');
-      alert('Usuario desactivado Correctamente')
+      this.presentAlert('Usuario', 'Usuario desactivado Correctamente');
    
       this.getUsuarios()
     }, (error) => {
@@ -93,7 +105,7 @@ export class TablausuariosPage implements OnInit {
     usuario.estado_rg=1
     this.api.deleteUsuario(usuario).subscribe(() => {
       console.log('Usuario Eliminado Correctamente');
-      alert('Usuario activado Correctamente')
+      this.presentAlert('Usuario', 'Usuario activado Correctamente');
    
       this.getUsuarios()
     }, (error) => {
@@ -121,9 +133,10 @@ export class TablausuariosPage implements OnInit {
     this.api.updateUsuarios(this.updateusuario).subscribe(data => {
       console.log(data)
       if (data) {
-        alert('Se ha actualizado correctamente')
+        this.presentAlert('Actualizar Usuario', 'Se ha actualizado correctamente');
       } else {
-        alert('Intenta nuevamente')
+        this.presentAlert('Actualizar Usuario', 'Intenta nuevamente');
+        
       }
     })
 

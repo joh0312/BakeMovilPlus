@@ -5,7 +5,7 @@ import { RegistroI } from '../models/registro.interface';
 import { RolesI } from 'src/app/models/roles.interfaces';
 import { AuthService } from '../services/auth.service';
 import { TipoDocI } from 'src/app/models/tipoDocument.interface';
-
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +29,7 @@ export class RegisterPage implements OnInit {
   rolClicked: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private api: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private api: AuthService, private router: Router, private alertController: AlertController) {
     this.nuevoForm = this.fb.group({
       id_tipo_documento: ['', Validators.required],
       id_rol: ['', Validators.required],
@@ -43,7 +43,18 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  ngOnInit(): void  {
+  // Método para mostrar la alerta
+  async presentAlert(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  ngOnInit(): void {
     this.getRoles()
     this.getTipoDoc()
 
@@ -54,7 +65,7 @@ export class RegisterPage implements OnInit {
     this.api.insertUsuarios(form).subscribe(data => {
       console.log(data)
       if (data) {
-        alert('Se ha insertado correctamente')
+        this.presentAlert('Registro', 'Se ha insertado correctamente');
         /*Swal.fire({
           icon: "success",
           title: "Registro Exitoso",
@@ -63,7 +74,7 @@ export class RegisterPage implements OnInit {
         });*/
 
       } else {
-        alert('Intenta nuevamente')
+        this.presentAlert('Registro', 'El registro no ha sido exitoso intenta nuevamente');
         /*Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -85,7 +96,7 @@ export class RegisterPage implements OnInit {
     }
     return null; // El email es válido
   }
-validateNombre() {
+  validateNombre() {
     if (!this.nombreClicked) {
       return false; // No mostrar error si no se ha hecho clic en el campo de apellido
     }
@@ -102,7 +113,7 @@ validateNombre() {
       return false; // No mostrar error si no se ha hecho clic en el campo de apellido
     }
     const apellidoControl = this.nuevoForm.get('apellido_usuario');
-    if (apellidoControl?.errors  ) {
+    if (apellidoControl?.errors) {
       return 'El apellido es requerido.';
     } else if (apellidoControl?.value.length < 4) {
       return 'Al menos 4 caracteres.';
@@ -115,7 +126,7 @@ validateNombre() {
       return false; // No mostrar error si no se ha hecho clic en el campo de apellido
     }
     const passControl = this.nuevoForm.get('password_usuario');
-    if (passControl?.errors ) {
+    if (passControl?.errors) {
       return 'El contraseña es requerido.';
     } else if (passControl?.value.length <= 5) {
       return 'Al menos 6 caracteres.';
@@ -129,7 +140,7 @@ validateNombre() {
     const cPassControl = this.nuevoForm.get('cPassword_usuario');
     const passControl = this.nuevoForm.get('password_usuario');
 
-    if (cPassControl?.errors ) {
+    if (cPassControl?.errors) {
       return 'El contraseña es requerido.';
     } else if (cPassControl?.value.length <= 5) {
       return 'Al menos 6 caracteres.';
@@ -155,10 +166,10 @@ validateNombre() {
     if (!this.telefonoClicked) {
       return false; // No mostrar error si no se ha hecho clic en el campo de apellido
     }
-      
+
     const telControl = this.nuevoForm.get('telefono_usuario');
-    
-    if(telControl?.value==null){
+
+    if (telControl?.value == null) {
       return null
     }
 
@@ -201,7 +212,7 @@ validateNombre() {
           this.roles = [data];
         }
       },
-      error: (error:any) => {
+      error: (error: any) => {
         console.error('Error al obtener roles:', error);
       }
     });
@@ -218,7 +229,7 @@ validateNombre() {
           console.log(this.tipoDocs)
         }
       },
-      error: (error:any) => {
+      error: (error: any) => {
         console.error('Error al obtener roles:', error);
       }
     });
